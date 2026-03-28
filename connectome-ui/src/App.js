@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, useEffect } from "react";
 
 function App() {
     // this stores what the user types
@@ -12,29 +12,80 @@ function App() {
     const [biBfsNodes, setBiBfsNodes] = useState("--");
     const [path, setPath] = useState("No path yet");
 
+    useEffect(() => {
+        // load backend script only once
+        if (window.Module && window.Module.runBFS) {
+            console.log("Backend already loaded");
+            return;
+        }
+
+        if (document.querySelector('script[src="/connectome.js"]')) {
+            return;
+        }
+
+        const script = document.createElement("script");
+        script.src = "/connectome.js";
+        script.async = true;
+        document.body.appendChild(script);
+
+        script.onload = () => {
+            if (window.Module) {
+                window.Module.onRuntimeInitialized = () => {
+                    console.log("Backend loaded");
+
+                    const success = window.Module.loadData("twitter_combined.txt");
+
+                    if (success) {
+                        console.log("Data loaded successfully!");
+                    } else {
+                        console.log("Data failed to load");
+                    }
+                };
+            } else {
+                console.log("Module not found");
+            }
+        };
+    }, []);
+
     // this runs when the button is clicked
     function handleRunSearch() {
-        // make sure both boxes have something
         if (sourceNode === "" || targetNode === "") {
             alert("Please enter both node IDs.");
             return;
         }
 
-        // fake results for now
-        const fakeBfsTime = Math.floor(Math.random() * 100) + 80;
-        const fakeBfsNodes = Math.floor(Math.random() * 4000) + 3000;
+        if (!window.Module || !window.Module.runBFS) {
+            alert("Backend not ready yet.");
+            return;
+        }
 
-        const fakeBiBfsTime = Math.floor(Math.random() * 50) + 20;
-        const fakeBiBfsNodes = Math.floor(Math.random() * 2000) + 1000;
+        // convert inputs to numbers
+        const sourceId = parseInt(sourceNode);
+        const targetId = parseInt(targetNode);
 
-        // update the screen
-        setBfsTime(fakeBfsTime);
-        setBfsNodes(fakeBfsNodes);
-        setBiBfsTime(fakeBiBfsTime);
-        setBiBfsNodes(fakeBiBfsNodes);
+        // run standard BFS
+        const bfsResult = window.Module.runBFS(sourceId, targetId, "bfs");
 
-        // fake path using the numbers the user typed
-        setPath(sourceNode + " → 45 → 78 → " + targetNode);
+        // run bidirectional BFS
+        const biResult = window.Module.runBFS(sourceId, targetId, "bidirectional");
+
+        // update UI with real data
+        if (bfsResult && biResult) {
+            setBfsTime(bfsResult.timeMs);
+            setBfsNodes(bfsResult.nodesVisited);
+
+            setBiBfsTime(biResult.timeMs);
+            setBiBfsNodes(biResult.nodesVisited);
+
+            // convert path array to string
+            if (bfsResult.path && bfsResult.path.length > 0) {
+                setPath(bfsResult.path.join(" → "));
+            } else {
+                setPath("No path found");
+            }
+        } else {
+            alert("No results returned.");
+        }
     }
 
     return (

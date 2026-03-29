@@ -74,6 +74,7 @@ Clone the repository:
 ```bash
 git clone https://github.com/WangAlyssa/DSAProject2b.git
 cd DSAProject2b
+cd connectome-ui
 ```
 
 Install frontend dependencies:

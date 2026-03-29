@@ -20,8 +20,6 @@ bool loadData(string filePath) {
     int u, v;
     while (file >> u >> v) {
         adjList[u].push_back(v);
-        // If the graph is undirected, uncomment the next line:
-        // adjList[v].push_back(u);
     }
     file.close();
     printf("Successfully loaded %lu nodes into the graph!\n", adjList.size());
@@ -29,24 +27,21 @@ bool loadData(string filePath) {
 }
 
 val runBFS(int source, int target, int algoType) {
-    // 1. Initialize Emscripten return objects
     val result = val::object();
     val path = val::array();
     
-    // 2. Start high-resolution timer
     auto start = chrono::high_resolution_clock::now();
     
     int nodesVisited = 0;
     vector<int> pathVec;
 
-    // Edge Cases
     if (adjList.find(source) == adjList.end() || adjList.find(target) == adjList.end()) {
     } 
     else if (source == target) {
         pathVec.push_back(source);
         nodesVisited = 1;
     } 
-    // Algorithm 1: Standard BFS
+
     else if (algoType == 0) {
         queue<int> q;
         unordered_set<int> visited;
@@ -54,7 +49,7 @@ val runBFS(int source, int target, int algoType) {
 
         q.push(source);
         visited.insert(source);
-        parentMap[source] = -1; // -1 indicates the root node
+        parentMap[source] = -1;
         
         bool found = false;
 
@@ -86,7 +81,7 @@ val runBFS(int source, int target, int algoType) {
             reverse(pathVec.begin(), pathVec.end());
         }
     } 
-    // Algorithm 2: Bidirectional BFS
+
     else {
         queue<int> qStart, qTarget;
         unordered_map<int, int> parentStart, parentTarget;
@@ -151,7 +146,6 @@ val runBFS(int source, int target, int algoType) {
                 curr = parentTarget[curr];
             }
 
-            // Combine paths
             pathVec = pStart;
             for (int node : pTarget) {
                 pathVec.push_back(node);
@@ -159,16 +153,13 @@ val runBFS(int source, int target, int algoType) {
         }
     }
 
-    // 3. Stop timer and calculate duration in milliseconds
     auto end = chrono::high_resolution_clock::now();
     double duration = chrono::duration<double, milli>(end - start).count();
 
-    // 4. Convert C++ vector to Emscripten Javascript Array
     for (size_t i = 0; i < pathVec.size(); i++) {
         path.set(i, pathVec[i]);
     }
 
-    // 5. Populate final result object
     result.set("path", path);
     result.set("timeMs", duration);
     result.set("nodesVisited", nodesVisited);

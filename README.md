@@ -47,4 +47,24 @@ Setup & InstallationPrerequisitesNode.js (v16+)Emscripten SDK (Only if recompili
 cd DSAProject2b
 Install frontend dependencies:Bashnpm install
 Running the AppStart the development server:Bashnpm start
-Open http://localhost:3000 in your browser.Algorithms & ComplexityAlgorithmWorst-Case TimeSpace ComplexityPractical AdvantageStandard BFS$O(V + E)$$O(V)$Guarantees shortest path.Bidirectional BFS$O(b^{d/2})$$O(V)$Drastically reduces search space for large $d$.Graph Storage: Implemented via std::unordered_map<int, std::vector<int>> for $O(1)$ average neighbor lookup.WASM Memory: Configured with ALLOW_MEMORY_GROWTH=1 to handle the 30MB+ graph heap.Data DescriptionWe utilized the Social circles: Twitter dataset from the Stanford Large Network Dataset Collection (SNAP).Nodes: 81,306 unique users.Edges: 1,768,149 directed connections.Team & RolesBruce Wang (@bwang0403): Lead Algorithm Engineer. Responsible for C++ backend, Adjacency List construction, and BFS variants.Alyssa Wang (@WangAlyssa): Systems Integration. Responsible for Emscripten build pipeline, WASM bindings, and data management.Jade Garcia (@jadechahwan): Frontend Lead. Responsible for React dashboard, state management, and performance visualization.
+Open http://localhost:3000 in your browser.
+## Algorithms & Complexity
+
+| Algorithm | Worst-Case Time | Space Complexity | Practical Advantage |
+| :--- | :--- | :--- | :--- |
+| **Standard BFS** | $O(V + E)$ | $O(V)$ | Guarantees shortest path. |
+| **Bidirectional BFS** | $O(b^{d/2})$ | $O(V)$ | Drastically reduces search space. |
+
+* **Graph Storage:** Implemented via `std::unordered_map<int, std::vector<int>>` for **$O(1)$** average neighbor lookup.
+* **WASM Memory:** Compiled with `ALLOW_MEMORY_GROWTH=1` to dynamically handle the **30MB+** graph heap in-browser.
+
+## Data Description
+We utilized the **Social circles: Twitter** dataset from the [Stanford Large Network Dataset Collection (SNAP)](http://snap.stanford.edu/data).
+* **Nodes:** 81,306 unique users.
+* **Edges:** 1,768,149 directed connections.
+* **Format:** Adjacency list stored in `twitter_combined.txt`.
+
+## Team & Roles
+* **Bruce Wang** ([@bwang0403](https://github.com/bwang0403)): **Lead Algorithm Engineer**. Responsible for C++ backend architecture, adjacency list optimization, and core BFS/Bi-BFS logic.
+* **Alyssa Wang** ([@WangAlyssa](https://github.com/WangAlyssa)): **Systems Integration**. Managed the Emscripten build pipeline, WASM-to-JS bindings, and client-side data preloading.
+* **Jade Garcia** ([@jadechahwan](https://github.com/jadechahwan)): **Frontend Lead**. Developed the React dashboard, implemented real-time performance visualization, and managed UI state.

@@ -116,6 +116,12 @@ We utilized the **Social circles: Twitter** dataset from the [Stanford Large Net
 
 ---
 
+## What ID to Use
+For the best experience, please use these validated Twitter ID pairs to see our WASM engine in action across 1.7M connections: try a Direct Connection (Source 214328887, Target 34428380), a Short Path (Source 214328887, Target 17116707), or a Deep Search (Source 19397785, Target 1050221). These IDs are guaranteed to exist in our dataset and will perfectly demonstrate the millisecond-level efficiency and correctness of our BFS algorithms.
+You can also try this!
+<img width="1094" height="992" alt="image" src="https://github.com/user-attachments/assets/a198adf1-8c47-48cc-a65c-f2051461f903" />
+
+
 ## Team & Roles
 
 * **Bruce Wang** ([@bwang0403](https://github.com/bwang0403))

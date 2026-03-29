@@ -41,7 +41,6 @@ val runBFS(int source, int target, int algoType) {
 
     // Edge Cases
     if (adjList.find(source) == adjList.end() || adjList.find(target) == adjList.end()) {
-        // Source or target not found in graph, pathVec remains empty
     } 
     else if (source == target) {
         pathVec.push_back(source);
@@ -78,7 +77,6 @@ val runBFS(int source, int target, int algoType) {
             }
         }
 
-        // Reconstruct path for Standard BFS
         if (found) {
             int curr = target;
             while (curr != -1) {
@@ -102,7 +100,6 @@ val runBFS(int source, int target, int algoType) {
         int intersectNode = -1;
 
         while (!qStart.empty() && !qTarget.empty()) {
-            // --- Expand from Source ---
             int currStart = qStart.front();
             qStart.pop();
             nodesVisited++;
@@ -121,7 +118,6 @@ val runBFS(int source, int target, int algoType) {
 
             if (intersectNode != -1) break;
 
-            // --- Expand from Target ---
             int currTarget = qTarget.front();
             qTarget.pop();
             nodesVisited++;
@@ -139,11 +135,9 @@ val runBFS(int source, int target, int algoType) {
             }
         }
 
-        // Reconstruct path for Bidirectional BFS
         if (intersectNode != -1) {
             vector<int> pStart, pTarget;
             
-            // Build path from Start to Intersection
             int curr = intersectNode;
             while (curr != -1) {
                 pStart.push_back(curr);
@@ -151,7 +145,6 @@ val runBFS(int source, int target, int algoType) {
             }
             reverse(pStart.begin(), pStart.end());
 
-            // Build path from Intersection to Target (skip the intersection node)
             curr = parentTarget[intersectNode];
             while (curr != -1) {
                 pTarget.push_back(curr);

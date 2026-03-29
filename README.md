@@ -39,7 +39,7 @@ WASM Acceleration: Near-instant execution by running compiled C++ code on the cl
        emcc core/main.cpp -o public/wasm/module.js -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 --bind --preload-file data/twitter_combined.txt
 4. Launch the Application
      Start the developmentserver:
-       Bashnpm start
+       npm start
 The app will be available at http://localhost:3000.
 
 

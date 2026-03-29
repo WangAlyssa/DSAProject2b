@@ -129,6 +129,3 @@ We utilized the **Social circles: Twitter** dataset from the [Stanford Large Net
 * **Jade Garcia** ([@jadechahwan](https://github.com/jadechahwan))
   *Frontend Engineer*
   Developed the React dashboard, implemented real-time performance visualization, and managed UI state
-
-```
-```

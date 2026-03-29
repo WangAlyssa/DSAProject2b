@@ -1,16 +1,15 @@
-````markdown
 # Twitter Degrees of Separation: BFS vs. Bidirectional BFS
 
 A high-performance graph traversal system designed to calculate the shortest path (degrees of separation) between any two users in a massive social network (1.7M+ edges) using WebAssembly-accelerated C++.
 
 ## Table of Contents
-1. [Project Overview](#project-overview)
-2. [System Architecture](#system-architecture)
-3. [File Structure](#file-structure)
-4. [Setup & Installation](#setup--installation)
-5. [Algorithms & Complexity](#algorithms--complexity)
-6. [Data Description](#data-description)
-7. [Team & Roles](#team--roles)
+- [Project Overview](#project-overview)
+- [System Architecture](#system-architecture)
+- [File Structure](#file-structure)
+- [Setup & Installation](#setup--installation)
+- [Algorithms & Complexity](#algorithms--complexity)
+- [Data Description](#data-description)
+- [Team & Roles](#team--roles)
 
 ---
 
@@ -133,4 +132,3 @@ We utilized the **Social circles: Twitter** dataset from the [Stanford Large Net
 
 ```
 ```
-
